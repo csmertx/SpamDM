@@ -1,0 +1,262 @@
+#!/bin/sh
+
+######################################################################
+# Ziffo Display Manager is a simple display manager written in Bash
+# Copyright (C) 2018 csmertx
+######################################################################
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+######################################################################
+
+############# ..Here be dragons.. #############
+# ZDM automatically backs up .xinitrc
+# Though manual backups are encouraged
+#
+# Change $default and $avoid variables at your
+# discretion
+#
+# Finally, if needed:
+# setbits for ~/.xinitrcs & ZDM
+# (ZDM needs a line with exec in it (.xinitrc))
+###############################################
+
+
+### US Style 12r formatting: Tue Jul 10 01:33am
+date_time="$(date +'%a %b %d %I:%M%P')"
+
+### UK Style 12r formatting: Tue 10 Jul 01:33am
+# date_time1="$(date +'%a %d %b %I:%M%P')"
+
+### US Style 24r formatting: Tue Jul 10 01:33am
+# date_time2="$(date +'%a %b %d %R')"
+
+### UK Style 24r formatting: Tue 10 Jul 01:33am
+# date_time3="$(date +'%a %d %b %R')"
+
+### UTC formatting sans year
+# date_time4="$(date -u | sed 's/ UTC 2018//')"
+
+### Since Epoch
+# date_time5="$(date +'Epoch:%s')"
+
+### Find sessions
+ls /usr/share/xsessions > /dev/shm/ZDM
+
+if [[ -z $(ls /dev/shm) ]]; then
+    if [[ -z $(ls /tmp) ]]; then
+        echo "Error: Please comment lines 38-46 of ZDM and change var tmpdir to your local temporary directory."
+        sleep 10
+        exit 0
+    else
+        active_tmp="/tmp"
+    fi
+else
+    active_tmp="/dev/shm"
+fi
+
+tmpdir="$active_tmp"
+ZDM_tmp="$tmpdir/ZDM"
+startx_log="/dev/null"
+var=2
+default="i3"
+avoid="i3-with-shmlog"
+avoid2=""
+avoid3=""
+avoid4=""
+avoid5=""
+
+wm_name1="$(cat /usr/share/xsessions/$default.desktop | grep "^Name=" | sed 's/Name=//')"
+wm_exec1="$(cat /usr/share/xsessions/$default.desktop | grep "^Exec" | sed 's/Exec=//')"
+
+### Assign sessions to vars
+while read cfile; do
+    if [[ "$cfile" != "$default.desktop" && "$cfile" != "$avoid.desktop" && "$cfile" != "$avoid2.desktop" && "$cfile" != "$avoid3.desktop" && "$cfile" != "$avoid4.desktop" && "$cfile" != "$avoid5.desktop" ]]; then
+        wm_name="$(cat /usr/share/xsessions/$cfile | grep "^Name=" | sed 's/Name=//')"
+        wm_exec="$(cat /usr/share/xsessions/$cfile | grep "^Exec" | sed 's/Exec=//')"
+        declare "wm_name$var"="$wm_name"
+        declare "wm_exec$var"="$wm_exec"
+        var=$(( $var + 1))
+    fi
+done <$ZDM_tmp
+
+clear
+
+### Whimsical Window Managers. Because, no one uses 5 window managers...
+if [[ -z $wm_name2 ]]; then
+    wm_name2="Marvin"
+fi
+if [[ -z $wm_name3 ]]; then
+    wm_name3="qaplawm"
+fi
+if [[ -z $wm_name4 ]]; then
+    wm_name4="Hexagon"
+fi
+if [[ -z $wm_name5 ]]; then
+    wm_name5="pizzawm"
+fi
+
+### Fortune toggle
+# fortune_off="true"
+
+if [[ -z $fortune_off ]]; then
+    if [[ -z $(fortune | cowsay) ]]; then
+        echo "Please download package: cowsay, or uncomment fortune_off"
+        exit 0
+    else
+        ### Wild style fortune
+        DATE="$(date +'%D')"
+        HOUR="$(date +'%I')"
+        AMPM="$(date +'%P')"
+        ONCE_PER_DAY="/home/chris/.scripts/urxvt_fortune.txt"
+        CHKDATE="$(cat $ONCE_PER_DAY)"
+        fortune_mod="platitudes"
+        # fortune_mod="linux"
+        # fortune_mod="debian"
+        # fortune_mod="startrek"
+        # fortune_mod="cookie"
+        # fortune_mod="computers"
+        # fortune_mod="humorists"
+        # fortune_mod="hitchhiker"
+        # fortune_mod="futurama"
+        ### (cowsay -l for more)
+        speaker="cowsay"
+        # speaker="cowsay -f ghostbusters"
+        # speaker="cowsay -f elephant"
+        # speaker="cowsay -f cheese"
+        # speaker="cowsay -f eyes"
+        # speaker="cowsay -f vader"
+        # speaker="cowsay -T \!~
+        # speaker="cowsay -f tux"
+        # speaker="cowsay -f dragon"
+        # speaker="cowsay -f turtle"
+        # speaker="cowsay -f turkey"
+        # speaker="cowsay -f moose"
+        # speaker="cowsay -f stegosaurus"
+
+        if [[ "$DATE" == "$CHKDATE" ]]; then
+            echo ""
+        else
+            if [[ $HOUR == 05 || $HOUR == 06 || $HOUR == 07 || $HOUR == 08 || $HOUR == 09 || $HOUR == 10 || $HOUR == 11 ]]; then
+                if [[ "$AMPM" == "am" ]]; then
+                    fortune $fortune_mod | $speaker
+                    echo -e "\n"
+                    echo $DATE > $ONCE_PER_DAY
+                fi
+            fi
+        fi
+    fi
+fi
+
+### ZDM menu
+if [[ -n "$date_time" ]]; then
+    echo -e "########################################"
+    echo -e "########## $date_time ##########"
+    echo -e "########################################\n"
+elif [[ -n "$date_time1" ]]; then
+    echo -e "########################################"
+    echo -e "########## $date_time1 ##########"
+    echo -e "########################################\n"
+elif [[ -n "$date_time2" ]]; then
+    echo -e "########################################"
+    echo -e "########### $date_time2 ###########"
+    echo -e "########################################\n"
+elif [[ -n "$date_time3" ]]; then
+    echo -e "########################################"
+    echo -e "########### $date_time3 ###########"
+    echo -e "########################################\n"
+elif [[ -n "$date_time4" ]]; then
+    echo -e "########################################"
+    echo -e "######### $date_time4 ##########"
+    echo -e "########################################\n"
+elif [[ -n "$date_time5" ]]; then
+    echo -e "########################################"
+    echo -e "########### $date_time5 ###########"
+    echo -e "########################################\n"
+fi
+
+echo -e "(1) $wm_name1\n"
+echo -e "(2) $wm_name2\n"
+echo -e "(3) $wm_name3\n"
+echo -e "(4) $wm_name4\n"
+echo -e "(5) $wm_name5\n"
+echo -e "(6) Shell\n"
+echo -e "(7) Restart\n"
+echo -e "(8) Shutdown\n"
+echo -en "(?) "
+read session
+
+### Default is always 1 or any other undefined key
+### e.g. Enter Key
+case $session in
+    2)
+        session="$wm_exec2"
+        WindowN="$wm_name2"
+        ;;
+    3)
+        session="$wm_exec3"
+        WindowN="$wm_name3"
+        ;;
+    4)
+        session="$wm_exec4"
+        WindowN="$wm_name4"
+        ;;
+
+    5)
+        session="$wm_exec5"
+        WindowN="$wm_name5"
+        ;;
+    6)
+        session=""
+        action="Accessing Shell Prompt"
+        execute_var="$SHELL"
+        ;;
+    7)
+        session=""
+        action="Rebooting"
+        execute_var="/usr/bin/reboot"
+        ;;
+    8)
+        session=""
+        action="Shutting Down"
+        execute_var="/usr/bin/poweroff"
+        ;;
+    *)
+        session="$wm_exec1"
+        WindowN="$wm_name1"
+        ;;
+esac
+
+### Run shell, backup xinitrc, startx, etc.
+if [[ "$session" == "" ]]; then
+    echo -e "\n$action"
+    sleep 1
+    clear
+    exec $execute_var
+else
+    xinitrcf="/home/$USER/.xinitrc"
+    if [[ -n $(find $xinitrcf) ]]; then
+        if [[ -z $(cat $xinitrcf | grep "^# ZDM") ]]; then
+            cp $xinitrcf /home/$USER/.xinitrc_backup
+            cp /home/$USER/.xinitrc_backup $xinitrcf
+            sed -i 's/^.*exec.*$/# ZDM/' $xinitrcf
+            echo "exec $session" >> $xinitrcf
+        else
+            sed -i '/exec/d' $xinitrcf
+            echo "exec $session &> /dev/null" >> $xinitrcf
+        fi
+    fi
+    echo -e "\nStarting $WindowN"
+    sleep 1
+    clear
+    startx &> $startx_log
+fi
