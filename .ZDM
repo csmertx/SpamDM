@@ -6,7 +6,7 @@
 ######################################################################
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 2 of the License, or
+# the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
@@ -85,7 +85,7 @@ while read cfile; do
         wm_exec="$(cat /usr/share/xsessions/$cfile | grep "^Exec" | sed 's/Exec=//')"
         declare "wm_name$var"="$wm_name"
         declare "wm_exec$var"="$wm_exec"
-        var=$(( $var + 1))
+        var=$(( $var + 1 ))
     fi
 done <$ZDM_tmp
 
@@ -190,8 +190,8 @@ echo -e "(3) $wm_name3\n"
 echo -e "(4) $wm_name4\n"
 echo -e "(5) $wm_name5\n"
 echo -e "(6) Shell\n"
-echo -e "(7) Restart\n"
-echo -e "(8) Shutdown\n"
+echo -e "(7) TMUX\n"
+echo -e "(8) Restart\n"
 echo -en "(?) "
 read session
 
@@ -222,13 +222,13 @@ case $session in
         ;;
     7)
         session=""
-        action="Rebooting"
-        execute_var="/usr/bin/reboot"
+        action="Loading TMUX"
+        execute_var="/bin/tmux"
         ;;
     8)
         session=""
-        action="Shutting Down"
-        execute_var="/usr/bin/poweroff"
+        action="Rebooting"
+        execute_var="/usr/bin/reboot"
         ;;
     *)
         session="$wm_exec1"
