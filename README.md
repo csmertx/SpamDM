@@ -9,20 +9,20 @@ ZDM is a Bash script that runs after $USER console login.  It creates a list of 
 </p>
 
 ## Depends
-> - Fortune (fortune-mods)
-> - Cowsay
+- Fortune (fortune-mods)
+- Cowsay
 
 ## Installing ZDM
-> A. Read through the script and adjust as needed (date/time display, file/log locations, fortune-mod, binary locations, default window manager, etc)
-B. Backup current ~/.profile or append lines to ~/.profile as needed
-C. Copy to ~/.ZDM and ~/.profile
-D. Backup current ~/.xinitrc
-E. If no ~/.xinitrc then: echo "exec" > ~/.xinitrc
-F. Make ~/.ZDM and ~/.xinitrc executable
-G. sudo systemctl disable <current display manager>
-H. Logout & login to console
+- Read through the script and adjust as needed (date/time display, file/log locations, fortune-mod, binary locations, default window manager, etc)
+- Backup current ~/.profile or append lines to ~/.profile as needed
+- Copy to ~/.ZDM and ~/.profile
+- Backup current ~/.xinitrc
+- If no ~/.xinitrc then: echo "exec" > ~/.xinitrc
+- Make ~/.ZDM and ~/.xinitrc executable
+- sudo systemctl disable <current display manager>
+- Logout & login to console
 
 ## Uninstalling ZDM
-A. Delete ~/.ZDM
-B. Restore backups of ~/.profile and ~/.xinitrc
-C. sudo systemctl enable <previous display manager>
+- Delete ~/.ZDM
+- Restore backups of ~/.profile and ~/.xinitrc
+- sudo systemctl enable <previous display manager>
