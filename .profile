@@ -1,4 +1,4 @@
-# zsh profile
+# Rename to .zprofile for zsh profile
 
 # basic window manager
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
