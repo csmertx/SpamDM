@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ######################################################################
 # Ziffo Display Manager is a simple display manager written in Bash
