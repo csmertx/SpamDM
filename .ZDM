@@ -52,6 +52,20 @@ date_time="$(date +'%a %b %d %I:%M%P')"
 ### Since Epoch
 # date_time5="$(date +'Epoch:%s')"
 
+### Default WM, etc.
+ZDM_folder="/home/$USER/.config/ZDM"
+startx_log="$ZDM_folder/zdm.log"
+#startx_log="/dev/null"
+ZDM_fortune="$ZDM_folder/zdm_fortune.txt"
+ZDM_default_shell="$SHELL"
+#ZDM_default_shell="fbterm --font-names scientifica:style=Regular"
+default="i3"
+avoid="i3-with-shmlog"
+avoid2=""
+avoid3=""
+avoid4=""
+avoid5=""
+
 if [[ -z $(ls /dev/shm) ]]; then
     if [[ -z $(ls /tmp) ]]; then
         echo "ZDM Error: Please change variable \$active_tmp."
@@ -64,22 +78,16 @@ else
     active_tmp="/dev/shm"
 fi
 
-if [[ -z $(ls /home/$USER/.ZDM) ]]; then
-    mkdir /home/$USER/.ZDM
-    touch /home/$USER/.ZDM/zdm_fortune.txt
+if [[ -z $(ls $ZDM_folder) ]]; then
+    mkdir $ZDM_folder
+    touch $ZDM_fortune
+    touch $startx_log
 fi
 
-### Default WM, etc.
+### Pre
 tmpdir="$active_tmp"
 ZDM_tmp="$tmpdir/ZDM"
-startx_log="/dev/null"
 var=2
-default="i3"
-avoid="i3-with-shmlog"
-avoid2=""
-avoid3=""
-avoid4=""
-avoid5=""
 
 ### Find sessions
 ls /usr/share/xsessions > $ZDM_tmp
@@ -126,8 +134,7 @@ if [[ -z $fortune_off ]]; then
         DATE="$(date +'%D')"
         HOUR="$(date +'%I')"
         AMPM="$(date +'%P')"
-        ONCE_PER_DAY="/home/$USER/.ZDM/zdm_fortune.txt"
-        CHKDATE="$(cat $ONCE_PER_DAY)"
+        CHKDATE="$(cat $ZDM_fortune)"
         fortune_mod="platitudes"
         # fortune_mod="linux"
         # fortune_mod="debian"
@@ -227,7 +234,7 @@ case $session in
     6)
         session=""
         action="Accessing Shell Prompt"
-        execute_var="$SHELL"
+        execute_var="$ZDM_default_shell"
         ;;
     7)
         session=""
