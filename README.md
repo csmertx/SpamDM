@@ -19,10 +19,10 @@ ZDM is a Bash script that runs after $USER console login.  The script creates a 
 - Backup current ~/.xinitrc
 - If no ~/.xinitrc then: echo "exec" > ~/.xinitrc
 - Make ~/.ZDM and ~/.xinitrc executable
-- sudo systemctl disable <current display manager>
+- sudo systemctl disable (current display manager)
 - Logout & login to console
 
 ## Uninstalling ZDM
 - Delete ~/.ZDM
 - Restore backups of ~/.profile and ~/.xinitrc
-- sudo systemctl enable <previous display manager>
+- sudo systemctl enable (previous display manager)
