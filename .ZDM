@@ -31,7 +31,7 @@
 ###############################################
 
 # Comment out lines 34-35 to begin..
-echo "This is ZDM speaking.  You can re-enable your display manager by issuing command: sudo systemctl enable <display manager>"
+echo "ZDM speaking: You can re-enable your display manager by issuing command: sudo systemctl enable <display manager>"
 exit 0
 
 ### US Style 12r formatting: Tue Jul 10 01:33am
@@ -52,12 +52,9 @@ date_time="$(date +'%a %b %d %I:%M%P')"
 ### Since Epoch
 # date_time5="$(date +'Epoch:%s')"
 
-### Find sessions
-ls /usr/share/xsessions > /dev/shm/ZDM
-
 if [[ -z $(ls /dev/shm) ]]; then
     if [[ -z $(ls /tmp) ]]; then
-        echo "Error: Please comment lines 38-46 of ZDM and change var tmpdir to your local temporary directory."
+        echo "ZDM Error: Please change variable \$active_tmp."
         sleep 10
         exit 0
     else
@@ -72,6 +69,7 @@ if [[ -z $(ls /home/$USER/.ZDM) ]]; then
     touch /home/$USER/.ZDM/zdm_fortune.txt
 fi
 
+### Default WM, etc.
 tmpdir="$active_tmp"
 ZDM_tmp="$tmpdir/ZDM"
 startx_log="/dev/null"
@@ -82,6 +80,9 @@ avoid2=""
 avoid3=""
 avoid4=""
 avoid5=""
+
+### Find sessions
+ls /usr/share/xsessions > $ZDM_tmp
 
 wm_name1="$(cat /usr/share/xsessions/$default.desktop | grep "^Name=" | sed 's/Name=//')"
 wm_exec1="$(cat /usr/share/xsessions/$default.desktop | grep "^Exec" | sed 's/Exec=//')"
