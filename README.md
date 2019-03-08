@@ -1,5 +1,5 @@
 # ZDM
-Ziffo Display Manager (Ziff is Australian for beard 🧔)
+Ziffo Display Manager (Ziff: Australian for beard)
 
 ## About
 ZDM is a Bash script that runs after $USER console login.  The script creates a selectable list of window managers to choose from via /usr/share/xsessions like most GUI based display managers.  There are options to select a default window manager, avoid certain window managers, select a fortune-mod of your choice, and choose where you would like to save the ZDM log (X logging).
