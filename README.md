@@ -21,7 +21,6 @@ ZDM is a strictly console based display manager 'frontend' for xinitrc.  The scr
 - If no ~/.xinitrc then: echo "exec" > ~/.xinitrc
 - Make ~/.ZDM and ~/.xinitrc executable
 - sudo systemctl disable (current display manager)
-- Logout & login to console
 
 ## Uninstalling ZDM
 - Delete ~/.ZDM
