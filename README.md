@@ -2,7 +2,7 @@
 Ziffo Display Manager (Ziff: Australian for beard)
 
 ## About
-ZDM is a Bash script that runs after $USER console login.  The script creates a selectable list of up to five window managers currently installed.  There are options to select a default window manager, avoid certain window managers, select a fortune-mod of your choice, and choose where you would like to save the ZDM log (X logging).
+ZDM is a Bash script that runs after $USER console login.  The script creates a selectable list of up to five window managers currently installed.  There are options to select a default window manager, avoid certain window managers, select a fortune-mod of your choice, and choose where you would like to save the ZDM log (default: ~/.config/zdm/zdm.log).
 
 <p align="center">
   <img width="600" src="https://github.com/csmertx/ZDM/blob/master/zdm_screenshot.png?raw=true" alt="Preview of ZDM"/>
