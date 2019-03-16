@@ -11,6 +11,7 @@ ZDM is a strictly console based display manager 'frontend' for xinitrc.  The scr
 ## Depends
 - Fortune (fortune-mods)
 - Cowsay
+- X
 
 ## Installing ZDM
 - Read through the script and adjust as needed (date/time display, file/log locations, fortune-mod, binary locations, default window manager, etc)
