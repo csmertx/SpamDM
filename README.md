@@ -2,7 +2,11 @@
 Ziffo Display Manager (Ziff: Australian for beard)
 
 ## About
-ZDM is a strictly console based display manager 'frontend' for xinitrc.  The script creates a selectable list of up to five window managers currently installed.  The script also includes options to select a default window manager, avoid certain window managers, select a fortune-mod of your choice, and choose where you would like to save the ZDM log (default: ~/.config/ZDM/zdm.log).  Testing notes: should work 'out of the box' with Arch Linux, might need some sed/awk tweaks for BSDs, a bit of a headache with Debian.
+ZDM is a strictly console based display manager 'frontend' for xinitrc.  The script creates a selectable list of up to five window managers currently installed.  The script also includes options to select a default window manager, avoid certain window managers, select a fortune-mod of your choice, and choose where you would like to save the ZDM log (default: ~/.config/ZDM/zdm.log).  
+
+## Cross Platform notes
+
+The script should work 'out of the box' with Arch Linux, might need some sed/awk tweaks for BSDs (I'd imagine the same with OSX), and using with Debian might cause a few headaches.
 
 <p align="center">
   <img width="600" src="https://github.com/csmertx/ZDM/blob/master/zdm_screenshot.png?raw=true" alt="Preview of ZDM"/>
