@@ -12,7 +12,8 @@ ZDM is a strictly console based display manager 'frontend' for xinitrc.  The scr
 
 The script should work 'out of the box' with Arch Linux.  It might need some sed/awk tweaks for BSDs (I'd imagine the same with OSX).  And with Debian.. well, it might cause a few headaches.
 
-## Depends
+## Dependencies
+- Bash
 - Fortune (fortune-mods)
 - Cowsay
 - X
