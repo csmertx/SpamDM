@@ -16,19 +16,27 @@ The script should work 'out of the box' with Arch Linux.  It might need some sed
 - Bash
 - Fortune (fortune-mods)
 - Cowsay
-- X
+- Xorg
 
 ## Installing ZDM
-- Read through the script and adjust as needed (date/time display, file/log locations, fortune-mod, binary locations, default window manager, etc)
+- Read through the script and adjust as needed (date/time display, file/log locations, fortune-mod, app locations, default window manager, etc)
 - Backup current ~/.profile or append lines to ~/.profile as needed
 - Copy to ~/.ZDM and ~/.profile
 - Backup current ~/.xinitrc
 - If no ~/.xinitrc then: echo "exec" > ~/.xinitrc
 - Make ~/.ZDM and ~/.xinitrc executable
-- sudo systemctl disable (current display manager)
+```
+sudo systemctl disable (current display manager)
+```
 
 ## Uninstalling ZDM
-- Delete ~/.ZDM
-- Delete ~/.config/ZDM/*
+```
+rm -rf ~/.ZDM
+```
+```
+rm -rf ~/.config/ZDM/*
+```
 - Restore backups of ~/.profile and ~/.xinitrc
-- sudo systemctl enable (previous display manager)
+```
+sudo systemctl enable (previous display manager)
+```
