@@ -5,7 +5,7 @@ Very Display Manger, much TMUX, very fix the thing.  You know, that one thing.
 SpamDM is a console based display manager frontend for xinitrc.  The script creates a selectable list of up to five window managers currently installed.  The script also includes options to select a default window manager, avoid certain window managers, select a fortune-mod of your choice, and choose where you would like to save the spamdm log (default: ~/.config/spamdm/zdm.log).  
 
 <p align="center">
-  <img width="600" src="https://github.com/csmertx/spamdm/blob/master/spamdm_screenshot.png?raw=true" alt="Preview of spamdm"/>
+  <img width="600" src="https://github.com/xtrafrood/spamdm/blob/master/spamdm_screenshot.png?raw=true" alt="Preview of spamdm"/>
 </p>
 
 ## Cross Platform notes
