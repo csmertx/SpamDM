@@ -20,7 +20,7 @@ The script should work with Arch Linux.  It might need some sed/awk tweaks for B
 - Patience
 
 ## Installing spamdm
-- Browse the script and adjust as options as needed (date/time display, file/log locations, fortune-mod, app locations, default window manager, etc)
+- Browse the script and adjust options as needed (date/time display, file/log locations, fortune-mod, app locations, default window manager, etc)
 - Backup current ~/.profile or append lines to ~/.profile as needed
 - Copy to ~/.spamdm and ~/.profile
 - Backup current ~/.xinitrc
