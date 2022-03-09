@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ######################################################################
-# Ziffo Display Manager is a nimble display manager written in Bash
-# Copyright (C) 2018 csmertx
+# Spam Display Manager is a nimble Bash based dynamic display manager
+# Copyright (C) 2022 csmertx
 ######################################################################
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,19 +19,19 @@
 ######################################################################
 
 ############# ..Here be dragons.. #############
-# ZDM automatically backs up .xinitrc
+# SpamDM automatically backs up .xinitrc
 # Though manual backups are encouraged
 #
 # Change $default and $avoid variables at your
 # discretion
 #
 # Finally, if needed:
-# setbits for ~/.xinitrcs & ZDM
-# (ZDM needs a line with exec in it (.xinitrc))
+# sudo chmod -X (for ~/.xinitrcs & spamdm)
+# (SpamDM needs a line with exec in it (.xinitrc))
 ###############################################
 
 # Comment out lines 34-35 to begin..
-echo "ZDM speaking: You can re-enable your display manager by issuing command: sudo systemctl enable <display manager>"
+echo "SpamDM speaking: You can re-enable your display manager by issuing command: sudo systemctl enable <display manager>"
 exit 0
 
 ### US Style 12r formatting: Tue Jul 10 01:33am
@@ -53,12 +53,12 @@ date_time="$(date +'%a %b %d %I:%M%P')"
 # date_time5="$(date +'Epoch:%s')"
 
 ### Default WM, etc.
-ZDM_folder="/home/$USER/.config/ZDM"
-startx_log="$ZDM_folder/zdm.log"
+spamdm_folder="/home/$USER/.config/spamdm"
+startx_log="$spamdm_folder/zdm.log"
 #startx_log="/dev/null"
-ZDM_fortune="$ZDM_folder/zdm_fortune.txt"
-ZDM_default_shell="$SHELL"
-#ZDM_default_shell="fbterm --font-names scientifica:style=Regular"
+spamdm_fortune="$spamdm_folder/zdm_fortune.txt"
+spamdm_default_shell="$SHELL"
+#spamdm_default_shell="fbterm --font-names scientifica:style=Regular"
 default="i3"
 avoid="i3-with-shmlog"
 avoid2=""
@@ -68,7 +68,7 @@ avoid5=""
 
 if [[ -z $(ls /dev/shm) ]]; then
     if [[ -z $(ls /tmp) ]]; then
-        echo "ZDM Error: Please change variable \$active_tmp."
+        echo "spamdm Error: Please change variable \$active_tmp."
         sleep 10
         exit 0
     else
@@ -78,19 +78,19 @@ else
     active_tmp="/dev/shm"
 fi
 
-if [[ -z $(ls $ZDM_folder) ]]; then
-    mkdir $ZDM_folder
-    touch $ZDM_fortune
+if [[ -z $(ls $spamdm_folder) ]]; then
+    mkdir $spamdm_folder
+    touch $spamdm_fortune
     touch $startx_log
 fi
 
 ### Pre
 tmpdir="$active_tmp"
-ZDM_tmp="$tmpdir/ZDM"
+spamdm_tmp="$tmpdir/spamdm"
 var=2
 
 ### Find sessions
-ls /usr/share/xsessions > $ZDM_tmp
+ls /usr/share/xsessions > $spamdm_tmp
 
 wm_name1="$(cat /usr/share/xsessions/$default.desktop | grep "^Name=" | sed 's/Name=//')"
 wm_exec1="$(cat /usr/share/xsessions/$default.desktop | grep "^Exec" | sed 's/Exec=//')"
@@ -104,7 +104,7 @@ while read cfile; do
         declare "wm_exec$var"="$wm_exec"
         var=$(( $var + 1 ))
     fi
-done <$ZDM_tmp
+done <$spamdm_tmp
 
 clear
 
@@ -134,7 +134,7 @@ if [[ -z $fortune_off ]]; then
         DATE="$(date +'%D')"
         HOUR="$(date +'%I')"
         AMPM="$(date +'%P')"
-        CHKDATE="$(cat $ZDM_fortune)"
+        CHKDATE="$(cat $spamdm_fortune)"
         fortune_mod="platitudes"
         # fortune_mod="linux"
         # fortune_mod="debian"
@@ -173,7 +173,7 @@ if [[ -z $fortune_off ]]; then
     fi
 fi
 
-### ZDM menu
+### spamdm menu
 if [[ -n "$date_time" ]]; then
     echo -e "########################################"
     echo -e "########## $date_time ##########"
@@ -234,7 +234,7 @@ case $session in
     6)
         session=""
         action="Accessing Shell Prompt"
-        execute_var="$ZDM_default_shell"
+        execute_var="$spamdm_default_shell"
         ;;
     7)
         session=""
@@ -261,10 +261,10 @@ if [[ "$session" == "" ]]; then
 else
     xinitrcf="/home/$USER/.xinitrc"
     if [[ -n $(find $xinitrcf) ]]; then
-        if [[ -z $(cat $xinitrcf | grep "^# ZDM") ]]; then
+        if [[ -z $(cat $xinitrcf | grep "^# spamdm") ]]; then
             cp $xinitrcf /home/$USER/.xinitrc_backup
             cp /home/$USER/.xinitrc_backup $xinitrcf
-            sed -i 's/^.*exec.*$/# ZDM/' $xinitrcf
+            sed -i 's/^.*exec.*$/# spamdm/' $xinitrcf
             echo "exec $session" >> $xinitrcf
         else
             sed -i '/exec/d' $xinitrcf

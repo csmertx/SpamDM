@@ -6,6 +6,6 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     if [[ -n $tpid ]]; then
         echo ""
     else
-        exec /home/$USER/.ZDM
+        exec /home/$USER/.spamdm
     fi
 fi
