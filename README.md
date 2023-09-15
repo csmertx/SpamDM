@@ -10,34 +10,40 @@ SpamDM is a console based display manager frontend for xinitrc.  The script crea
 
 ## Cross Platform notes
 
-The script should work with Arch Linux.  It might need some sed/awk tweaks for BSDs (I'd imagine the same with OSX).  And with Debian.. well, it might cause a few headaches.
+The script should work with Arch Linux.  It might need some sed/awk tweaks for Debian or BSDs.
 
 ## Dependencies
+
 - Bash
+
 - Fortune (fortune-mods)
+
 - Cowsay
+
 - Xorg
-- Patience
 
 ## Installing spamdm
+
 - Browse the script and adjust options as needed (date/time display, file/log locations, fortune-mod, app locations, default window manager, etc)
+
 - Backup current ~/.profile or append lines to ~/.profile as needed
+
 - Copy to ~/.spamdm and ~/.profile
+
 - Backup current ~/.xinitrc
-- If no ~/.xinitrc then: echo "exec" > ~/.xinitrc
-- Make ~/.spamdm and ~/.xinitrc executable
-```
-sudo systemctl disable (current display manager)
-```
+
+- If no ~/.xinitrc then ```echo "exec" > ~/.xinitrc```
+
+- ```sudo chmod +X ~/.spamdm``` and ```~/.xinitrc executable```
+
+- ```sudo systemctl disable (current display manager)```
 
 ## Uninstalling spamdm
-```
-rm -rf ~/.spamdm
-```
-```
-rm -rf ~/.config/spamdm/*
-```
+
+- ```rm -rf ~/.spamdm```
+
+- ```rm -rf ~/.config/spamdm/*```
+
 - Restore backups of ~/.profile and ~/.xinitrc
-```
-sudo systemctl enable (previous display manager)
-```
+
+- ```sudo systemctl enable (previous display manager)```
